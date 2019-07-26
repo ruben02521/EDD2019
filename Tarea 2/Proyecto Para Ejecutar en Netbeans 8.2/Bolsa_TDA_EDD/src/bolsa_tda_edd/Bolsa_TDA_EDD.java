@@ -6,7 +6,8 @@ public class Bolsa_TDA_EDD {
      
      static Scanner leer=new Scanner(System.in);
      static int opcion=0;
-     static Object elemento;
+     static int x;
+     static int y;
     public static void main(String[] args) {
         Bolsa_List Bolson=new Bolsa_List();
       
@@ -17,7 +18,7 @@ public class Bolsa_TDA_EDD {
         System.out.println("MENU-ACCIONES-CON-LA-BOLSA");
         System.out.println("[1] Ingresar Elemento");//ESTE ES EL INGRESAR 
         System.out.println("[2] Verificar si la Bolsa Esta Vacia");//ESTE ES EL EsVacia
-        System.out.println("[3] Numero De Elementos De Un Tipo Presentes En La Bolsa");//ESTE ES EL [CUANTOS] elementos de un tipo hay en la bolsa 
+        System.out.println("[3] Numero De Nodos A Partir De Una Entrada De Un Entero X, Entero Y");//ESTE ES EL [CUANTOS] elementos hay en la bolsa
         System.out.println("[4] Mostrar Elementos De La Bolsa");//sirve para verificar que la cantidad que resulte de la opcion 3 es valida
         System.out.println("[5] salir");
         opcion=leer.nextInt();
@@ -33,10 +34,18 @@ public class Bolsa_TDA_EDD {
         switch(opcion){
             
             case 1:
-                System.out.println("Ingrese Elemento a la Bolsa ");
-                elemento=leer.next();
-                Bolson.Insertar(elemento);
+                try{
+                System.out.println("Ingrese Entero X ");
+                x=leer.nextInt();
+                System.out.println("Ingrese Entero Y");
+                y=leer.nextInt();
+                Bolson.Insertar(x,y);//Manda a insertar a la bolsa elementos en su nodo
                 System.out.println("Elemento Ingresado");
+                }
+                catch(Exception e){
+                    System.out.println("Ingrese Numeros Enteros");
+                    leer.nextLine();
+                }
                 for (int i = 0; i < 4; i++) {
                     System.out.println("");//sirve solo para dar espaciado y que no se vea todo amontonado
                 }
@@ -60,10 +69,17 @@ public class Bolsa_TDA_EDD {
                 
             case 3:
              
-                System.out.println("Ingrese un elemento para verificar cuantos existe de ese tipo dentro de la bolsa");
-                elemento=leer.next();
-                System.out.println("La Bolsa Dispone De: "+Bolson.Cuantos(elemento)+" Elementos del tipo que ingreso");
-                
+                try{
+                System.out.println("Ingrese Entero X");
+                x=leer.nextInt();
+                System.out.println("Ingrese Entero Y");
+                y=leer.nextInt();
+                System.out.println("La Bolsa Dispone De: "+Bolson.Cuantos(x,y)+" Elementos");
+                }
+                catch(Exception e){
+                    System.out.println("Ingrese Numeros Enteros");
+                    leer.nextLine();
+                }
                 for (int i = 0; i < 4; i++) {
                     System.out.println("");//sirve solo para dar espaciado y que no se vea todo amontonado
                 }

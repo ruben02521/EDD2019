@@ -3,7 +3,7 @@ package bolsa_tda_edd;
 
 import java.util.Scanner;
 public class Bolsa_List {
-    
+    public static int ContadorDeElementos;
     Scanner leer=new Scanner(System.in);
     Bolsa PrimerElemento;
     Bolsa UltimoElemnto;
@@ -19,23 +19,24 @@ public class Bolsa_List {
     }
     
     
-    public void Insertar(Object N_Elemento){
+    public void Insertar(int x,int y){
         
         Bolsa NuevoElemento=new Bolsa();
-        NuevoElemento.Elemento=N_Elemento;
-        
+        NuevoElemento.EnteroX=x;
+        NuevoElemento.EnteroY=y;
         if (PrimerElemento==null) {
             
-          PrimerElemento=NuevoElemento;//como al inicio es null entonces primero apunta a nuevo
-          PrimerElemento.Siguiente=null;//luego hacemos que nuevo que ahora es el primero apunte a null
-          UltimoElemnto=PrimerElemento;// luego hacemos que ultimo apunte a primero y como primero es nuevo y nuevo apunta a null entonces quedo ya
-            
+            PrimerElemento=NuevoElemento;
+            UltimoElemnto=PrimerElemento;
+            PrimerElemento.Siguiente=UltimoElemnto;// 
+            ContadorDeElementos++;
         }
-        else
-        {
-        UltimoElemnto.Siguiente=NuevoElemento;//como antes ultimo estaba apuntando a null entonces ahora el primero apuntara a uno nuevo y luego ese
-        NuevoElemento.Siguiente=null;//nuevo apuntara a null
-        UltimoElemnto=NuevoElemento;//y luego ultimo apuntara a el nuevo que apunta a null
+        
+        else {
+            UltimoElemnto.Siguiente=NuevoElemento;
+            NuevoElemento.Siguiente=PrimerElemento;
+            UltimoElemnto=NuevoElemento;
+            ContadorDeElementos++;
         }
         
         
@@ -53,7 +54,7 @@ public class Bolsa_List {
         return Respuesta;
     }
     
-    public int Cuantos(Object Elemento){
+    public int Cuantos(int x,int y){
         
         int contadorElementos=0;//servira para contar los elementos que esten en la bolsa
         boolean RespuestaVacio=false;//servira para conocer la respuesta de si esta vacia o no la bolsa segun el metodo EsVacia
@@ -61,19 +62,19 @@ public class Bolsa_List {
         ElementoAux=PrimerElemento;
         
         RespuestaVacio=EsVacia();
-        
-        while (ElementoAux!=null) 
-        {
+        do {
+            
+            
             if (RespuestaVacio==false) //si mandan true esta vacia y si es false esta llena y puede entrar a buscar si aparece el elemento
                 //que se desee encontrar
 
             {
             
-            if (ElementoAux.Elemento.equals(Elemento)) //si encuentra el elemento en la bolsa entoncces le suma uno al contador
+            if (ElementoAux.EnteroX==x && ElementoAux.EnteroY==y) //si encuentra el elemento en la bolsa entoncces le suma uno al contador
             { 
                 
-                contadorElementos++;//se ira incrementando con forme este recorriendo toda la bolsa
-                
+                contadorElementos=ContadorDeElementos;//se ira incrementando con forme este recorriendo toda la bolsa
+                // 
             }
             
             else
@@ -86,29 +87,38 @@ public class Bolsa_List {
             
             else{//si es true que esta vacia entonces de una vez marca 0 elementos en la bolsa
                 contadorElementos=0;
+                return contadorElementos;
+                
             }
            
             ElementoAux=ElementoAux.Siguiente;
             
-        }
+            
+        } while (ElementoAux!=PrimerElemento);
         
         return contadorElementos;//devolvera la cantidad de elementos que existan en la lista
     }
     
     
     public void MostrarElementos(){
-        
+        boolean SiImprimir=false;
         Bolsa ElementoAux=new Bolsa();
-        
+        SiImprimir=EsVacia();
         ElementoAux=PrimerElemento;
-        while (ElementoAux!=null) {
-            
-            System.out.println(ElementoAux.Elemento);
+        do {
+            if (SiImprimir==false) {
+          
+                System.out.println("|"+ElementoAux.EnteroX+"|"+ElementoAux.EnteroY+"|");
             ElementoAux=ElementoAux.Siguiente;
+                  
+            }
             
-            
-            
-        }
+            else {
+                System.out.println("N/A");
+            }
+          
+        } while (ElementoAux!=PrimerElemento);
+        
         
         
         
